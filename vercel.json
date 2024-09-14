@@ -3,10 +3,6 @@
     {
       "source": "/",
       "destination": "https://github.com/GLASS20"
-    },
-    {
-      "source": "/:path",
-      "destination": "https://github.com/GLASS20/:path"
     }
   ]
 }
