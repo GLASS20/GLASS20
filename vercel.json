@@ -3,6 +3,10 @@
     {
       "source": "/",
       "destination": "https://github.com/GLASS20"
+    },
+    {
+      "source": "/:match/:url",
+      "destination": "https://github.com/GLASS20/:url"
     }
   ]
 }
