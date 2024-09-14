@@ -5,8 +5,8 @@
       "destination": "https://github.com/GLASS20"
     },
     {
-      "source": "/users/GLASS20/:path*",
-      "destination": "https://github.com/GLASS20/users/GLASS20/:path*"
+      "source": "/:path*",
+      "destination": "https://github.com/GLASS20/:path*"
     }
   ]
 }
