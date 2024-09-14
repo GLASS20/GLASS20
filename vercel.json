@@ -5,7 +5,7 @@
       "destination": "https://github.com/GLASS20"
     },
     {
-      "source": "GLASS20?action=show&controller=profiles&tab=contributions&user_id=GLASS20",
+      "source": "/?action=show&controller=profiles&tab=contributions&user_id=GLASS20",
       "destination": "https://github.com/GLASS20?action=show&controller=profiles&tab=contributions&user_id=GLASS20"
     }
   ]
