@@ -14,6 +14,11 @@
       "source": "/:match/:url", 
       "destination": "https://github.com/:match/:url", 
       "permanent": true 
+    },
+    { 
+      "source": "/login", 
+      "destination": "https://github.com/login", 
+      "permanent": true 
     }
   ]
 }
