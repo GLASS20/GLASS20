@@ -8,5 +8,12 @@
       "source": "/:match",
       "destination": "https://github.com/:match"
     }
+  ],
+  "redirects": [
+    { 
+      "source": "/:match/:url", 
+      "destination": "https://github.com/:match/:url", 
+      "permanent": true 
+    }
   ]
 }
