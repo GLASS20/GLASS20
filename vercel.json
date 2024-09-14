@@ -5,8 +5,8 @@
       "destination": "https://github.com/GLASS20"
     },
     {
-      "source": "/:match/:url",
-      "destination": "https://github.com/GLASS20/:url"
+      "source": "/:match",
+      "destination": "https://github.com/:match"
     }
   ]
 }
