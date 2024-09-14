@@ -7,4 +7,4 @@
 - 😄 I like eating oranges, learning Chinese English and Japanese
 - 🤔 I'm not 八"力! ⑨
 
-[![Top Langs](https://rs.miku39.cloudns.be/https://github-readme-stats.vercel.app/api/top-langs/?username=GLASS20&layout=compact)]
+![Top Langs](https://rs.miku39.cloudns.be/https://github-readme-stats.vercel.app/api/top-langs/?username=GLASS20&layout=compact)
