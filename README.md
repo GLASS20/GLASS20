@@ -9,4 +9,4 @@
 - 🤔 I'm not バカ! ⑨
 
 <br>
-<a href="https://github.com/GLASS20" target="_blank"><img src="https://count.129846.xyz/cirnoku:counter?theme=moebooru" alt="Moe Counter" height="80%" /></a>
+<a href="https://github.com/GLASS20" target="_blank"><img src="https://count.129846.xyz/cirnoku:counter?theme=moebooru" alt="Moe Counter" height="80%" class="display:inline float:left" /></a>
