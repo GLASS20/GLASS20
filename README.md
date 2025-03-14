@@ -9,4 +9,7 @@
 - 🤔 I'm not バカ! ⑨
 
 <br>
-<a href="https://github.com/GLASS20" target="_blank"><img src="https://count.129846.xyz/cirnoku:counter?theme=moebooru" alt="Moe Counter" height="80%" class="display:inline float:left" /></a>
+<a href="https://github.com/GLASS20" target="_blank"><img src="https://count.129846.xyz/cirnoku:counter?theme=moebooru" alt="Moe Counter" height="80%" /></a>
+
+<hr/>
+<div align="center"><a href="https://steamcommunity.com/id/C1all0">More</a> | <a href="https://129846.xyz">Site</a></div>
