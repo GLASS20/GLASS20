@@ -7,3 +7,5 @@
 - ⚡ I'm interested in **Anime** **Comic** and **Game**!
 - 😄 I'm learning English and Japanese
 - 🤔 I'm not バカ! ⑨
+
+<a href="https://github.com/GLASS20" target="_blank"><img src="https://count.129846.xyz/cirnoku:counter?theme=moebooru" alt="Moe Counter" /></a>
