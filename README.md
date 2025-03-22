@@ -12,4 +12,4 @@
 <a href="https://github.com/GLASS20" target="_blank"><img src="https://count.129846.xyz/cirnoku:counter?theme=moebooru" alt="Moe Counter" height="80%" /></a>
 
 <hr/>
-<div align="center"><a href="https://129846.xyz">More imformation</a></div>
+<div align="center"><a href="https://129846.xyz">More Information</a></div>
