@@ -2,8 +2,8 @@
 
 ### A self-taught developer from *東方*
 
-- 🔭 I'm currently working on Telegram-Bot API
-- 🌱 I'm currently learning **EJS** and **JavaScript**
+- 🔭 I'm currently playing *Rainbow Six Siege X*
+- 🌱 I'm currently learning **Golang** and **Java**
 - ⚡ I'm interested in **anime** **comics** and **games**!
 - 😄 I'm learning English and Japanese
 - 🤔 I'm not バカ! ⑨
