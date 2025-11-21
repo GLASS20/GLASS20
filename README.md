@@ -1,4 +1,4 @@
-## Hi 👋, I'm Cirnoku/C1all0
+## Hi 👋, I'm Maverick
 
 ### A self-taught developer from *東方*
 
