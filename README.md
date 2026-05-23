@@ -2,7 +2,7 @@
 
 ### A self-taught developer from *東方*
 
-- 🔭 I'm currently working on [Scarlet Sounds](https://github.com/BakaTechie/scarlet-sounds)
+- 🔭 I'm currently working on **Kirisame**
 - 🌱 I'm currently learning **Golang** and **Java**
 - ⚡ I'm interested in **anime** **comics** and **games**!
 - 😄 I'm learning English and Japanese
