@@ -1,0 +1,185 @@
+<div class="row mt-3">
+    <div class="col">
+        <div class="card border-0 shadow-sm bg-white">
+            <div class="card-body p-4">
+                <div class="row" data-masonry='{"percentPosition": true }'>
+                    {% if site.data.profile.steam %}
+                    <div class="col-lg-6">
+                        <div class="mx-2 my-1">
+                            <h5>Steam playtime leaderboard</h5>
+
+                            <ul id="steam-list" class="list small pl-3 mb-1">
+                                <li>Loading...</li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if site.data.profile.music %}
+                    <div class="col-lg-6">
+                        <div class="mx-2 my-1">
+                            <h5>My this week in music</h5>
+
+                            <ul id="music-list" class="list small pl-3 mb-1">
+                                <li>Loading...</li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if site.data.profile.steam %}
+<script>
+    fetch("{{ site.data.profile.steam }}")
+        .then(response => response.text())
+        .then(text => {
+            const list = document.getElementById("steam-list");
+            list.innerHTML = "";
+
+            text.split(/\r?\n/)
+                .filter(line => line.trim())
+                .forEach(line => {
+                    // 去除所有 emoji
+                    line = line.replace(
+                        /[\u{1F000}-\u{1FAFF}\u{1FC00}-\u{1FFFD}\u{2600}-\u{27BF}\u{2300}-\u{23FF}]/gu,
+                        ""
+                    ).trim();
+
+                    // 从右侧提取游玩时间
+                    const match = line.match(
+                        /^(.+?)\s+(\d+\s+hrs?\s+\d+\s+mins?)$/
+                    );
+
+                    if (!match) return;
+
+                    const name = match[1].trim();
+                    const time = match[2].trim();
+
+                    const li = document.createElement("li");
+
+                    const div = document.createElement("div");
+                    div.className = "d-flex";
+
+                    const nameDiv = document.createElement("div");
+                    nameDiv.textContent = name;
+
+                    const timeDiv = document.createElement("div");
+                    timeDiv.className = "ml-auto mt-auto no-break";
+
+                    const em = document.createElement("em");
+                    em.textContent = time;
+
+                    timeDiv.appendChild(em);
+                    div.appendChild(nameDiv);
+                    div.appendChild(timeDiv);
+                    li.appendChild(div);
+
+                    list.appendChild(li);
+                });
+        })
+        .catch(error => {
+            console.error("Failed to load Steam leaderboard:", error);
+            const list = document.getElementById("steam-list");
+
+            if (list) {
+                list.innerHTML = `
+                <li>
+                    <div class="d-flex">
+                        <div>Failed to load steam playtime</div>
+                    </div>
+                </li>
+            `;
+            }
+        });
+</script>
+{% endif %}
+
+{% if site.data.profile.music %}
+<script>
+    fetch("{{ site.data.profile.music }}")
+        .then(response => response.text())
+        .then(text => {
+            const list = document.getElementById("music-list");
+
+            if (!list) return;
+
+            list.innerHTML = "";
+
+            const lines = text
+                .split(/\r?\n/)
+                .map(line => line.trim())
+                .filter(Boolean);
+
+            if (lines.length === 0) {
+                list.innerHTML = `
+                <li>
+                    <div class="d-flex">
+                        <div>No music data available</div>
+                    </div>
+                </li>
+            `;
+                return;
+            }
+
+            lines.forEach(line => {
+                const match = line.match(/^\[(.*?)\]\s*-\s*(.+)$/);
+
+                if (!match) {
+                    return;
+                }
+
+                const title = match[1].trim();
+                const artist = match[2].trim();
+
+                const li = document.createElement("li");
+
+                const row = document.createElement("div");
+                row.className = "d-flex";
+
+                const titleDiv = document.createElement("div");
+                titleDiv.textContent = title;
+
+                const artistDiv = document.createElement("div");
+                artistDiv.className = "ml-auto mt-auto no-break";
+
+                const em = document.createElement("em");
+                em.textContent = artist;
+
+                artistDiv.appendChild(em);
+
+                row.appendChild(titleDiv);
+                row.appendChild(artistDiv);
+
+                li.appendChild(row);
+                list.appendChild(li);
+            });
+        })
+        .catch(error => {
+            console.error("Failed to load music:", error);
+
+            const list = document.getElementById("music-list");
+
+            if (list) {
+                list.innerHTML = `
+                <li>
+                    <div class="d-flex">
+                        <div>Failed to load weekly music</div>
+                    </div>
+                </li>
+            `;
+            }
+        });
+</script>
+{% endif %}
