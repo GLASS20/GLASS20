@@ -30,3 +30,19 @@ container_class: container-xl
     {% endfor %}
 </div>
 {% endfor %}
+
+<script>
+    window.addEventListener("message", function (event) {
+        if (!event.data) {
+            return;
+        }
+        if (event.data.type === "steam-profile-resize") {
+            const iframe = document.getElementById("steam-profile-frame");
+            if (!iframe) {
+                return;
+            }
+            iframe.style.height =
+                `${event.data.height}px`;
+        }
+    });
+</script>

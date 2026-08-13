@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+
+  <link
+          rel="stylesheet"
+          href="https://community.cloudflare.steamstatic.com/public/shared/css/shared_global.css"
+  >
+
+  <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+          integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer">
+  </script>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-width: 0;
+      background: transparent !important;
+      overflow: hidden;
+    }
+
+    body * {
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    /*
+     * 这个容器负责缩放 Steam Profile
+     */
+    #profile-wrapper {
+      position: relative;
+      width: max-content;
+      transform-origin: top left;
+    }
+
+    /*
+     * Steam Profile 本身保持原始尺寸
+     */
+    #profile-wrapper .miniprofile_container {
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="profile-wrapper">
+
+  <!-- Loading 状态 -->
+  <div class="miniprofile_container default">
+
+    <!-- Background -->
+    <div class="miniprofile_background">
+      <img
+              class="miniprofile_backgroundblur"
+              src="https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb.jpg"
+      >
+    </div>
+    <!-- Player -->
+    <div class="miniprofile_playersection">
+      <div class="playersection_avatar border_color_offline">
+        <img
+                src="https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg"
+                srcset="
+              https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg 1x,
+              https://avatars.akamai.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg 2x
+            "
+        >
+      </div>
+      <div class="player_content">
+        <span class="persona offline">Loading</span>
+        <span class="friend_status_offline">Offline</span>
+      </div>
+    </div>
+
+    <!-- Details -->
+    <div class="miniprofile_detailssection not_in_game miniprofile_backdrop">
+      <div class="miniprofile_featuredcontainer">
+        <img
+                src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/206440/67e23690ce7aad7e097d828463fb0adf4932a5ab.png"
+                class="badge_icon"
+        >
+        <div class="description">
+          <div class="name">Unknown</div>
+          <div class="xp">? XP</div>
+        </div>
+      </div>
+      <div class="miniprofile_featuredcontainer">
+        <div class="friendPlayerLevel lvl_0">
+          <span class="friendPlayerLevelNum">?</span>
+        </div>
+        <div class="description">
+          <div class="name">Steam Level</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+
+    const corsURL = "/api/getSteamStats";
+    const steamURL = "https://steamcommunity.com/id/C1all0";
+
+    const wrapper = document.getElementById("profile-wrapper");
+
+    /*
+     * 根据 iframe 当前宽度缩放 Steam Profile
+     */
+    function resizeProfile() {
+
+      const profile = wrapper.querySelector(".miniprofile_container");
+
+      if (!profile) {
+        return;
+      }
+
+      /*
+       * 先取消缩放
+       * 获取 Steam Profile 的真实尺寸
+       */
+      wrapper.style.transform = "none";
+
+      const width = profile.offsetWidth;
+      const height = profile.offsetHeight;
+
+      if (!width || !height) {
+        return;
+      }
+
+      /*
+       * iframe 当前可用宽度
+       */
+      const availableWidth = document.documentElement.clientWidth;
+
+      /*
+       * 根据宽度计算比例
+       *
+       * 如果空间足够：
+       * scale = 1
+       *
+       * 如果手机太窄：
+       * scale < 1
+       */
+      const scale = Math.min(
+              availableWidth / width,
+              1
+      );
+
+      /*
+       * 应用缩放
+       */
+      wrapper.style.transform = `scale(${scale})`;
+
+      /*
+       * transform 不会改变 body 的布局高度
+       * 所以手动计算缩放后的高度
+       */
+      const scaledHeight = height * scale;
+
+      document.body.style.height = `${scaledHeight}px`;
+
+      /*
+       * 告诉父页面 iframe 应该多高
+       */
+      window.parent.postMessage(
+              {
+                type: "steam-profile-resize",
+                height: scaledHeight
+              },
+              "*"
+      );
+    }
+
+
+    /*
+     * 获取真实 Steam Profile
+     */
+    $.get(corsURL, function (data) {
+
+      const temp = document.createElement("div");
+      temp.innerHTML = data;
+
+      const profile =
+              temp.querySelector(".miniprofile_container");
+
+      if (!profile) {
+        console.error("Steam Mini Profile not found");
+        resizeProfile();
+        return;
+      }
+
+      /*
+       * 替换 Loading Profile
+       */
+      wrapper.innerHTML = "";
+      wrapper.appendChild(profile);
+
+      /*
+       * 等浏览器完成布局之后再计算尺寸
+       */
+      requestAnimationFrame(function () {
+        resizeProfile();
+      });
+
+      /*
+       * 图片加载完成后重新计算
+       */
+      wrapper.querySelectorAll("img").forEach(function (img) {
+
+        if (!img.complete) {
+          img.addEventListener(
+                  "load",
+                  resizeProfile,
+                  { once: true }
+          );
+        }
+
+      });
+
+      /*
+       * 通知父页面加载完成
+       */
+      window.parent.postMessage(
+              {
+                type: "steam-profile-loaded"
+              },
+              "*"
+      );
+
+    }).fail(function (xhr) {
+
+      console.error(
+              "Failed to load Steam profile:",
+              xhr.status
+      );
+
+      resizeProfile();
+
+    });
+
+
+    /*
+     * iframe 宽度发生变化
+     */
+    window.addEventListener(
+            "resize",
+            resizeProfile
+    );
+
+
+    /*
+     * 如果 Steam Profile 自己尺寸发生变化
+     */
+    if (window.ResizeObserver) {
+
+      const observer =
+              new ResizeObserver(function () {
+                resizeProfile();
+              });
+
+      observer.observe(wrapper);
+    }
+
+
+    /*
+     * 点击 Profile 打开 Steam
+     */
+    $(document).on(
+            "click",
+            "#profile-wrapper .miniprofile_container",
+            function (e) {
+
+              e.preventDefault();
+
+              window.open(
+                      steamURL,
+                      "_blank"
+              );
+
+            }
+    );
+
+  });
+</script>
+</body>
+</html>
