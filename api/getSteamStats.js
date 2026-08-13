@@ -19,9 +19,7 @@ module.exports = async (req, res) => {
         const data = await response.text();
 
         res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Cache-Control", "public, s-maxage=600");
-        res.setHeader("CDN-Cache-Control", "public, s-maxage=600");
-        res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=600");
+        res.setHeader("Cache-Control", "no-store");
 
         res.status(200).send(data);
     } catch (err) {
