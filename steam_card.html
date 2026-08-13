@@ -28,7 +28,7 @@
       width: 100%;
       min-width: 0;
       background: transparent !important;
-      overflow: hidden;
+      overflow: hidden; /* 防止内部元素超出圆角边缘 */
     }
 
     body * {
@@ -39,19 +39,19 @@
     }
 
     /*
-     * 这个容器负责缩放 Steam Profile
+     * 负责整体卡片的容器，加上圆角与阴影
      */
     #profile-wrapper {
       position: relative;
       width: max-content;
-      transform-origin: top left;
+      transform-origin: top left; /* 从左上角开始缩放 */
+      border-radius: 0.5rem;      /* 设置圆角 */
+      overflow: hidden;           /* 裁切内部 Steam 卡片超出的背景图片或边缘 */
     }
 
-    /*
-     * Steam Profile 本身保持原始尺寸
-     */
     #profile-wrapper .miniprofile_container {
       flex-shrink: 0;
+      border-radius: 0.5rem;      /* 确保 Steam 内部容器也是圆角 */
     }
   </style>
 </head>
@@ -120,45 +120,29 @@
     /*
      * 根据 iframe 当前宽度缩放 Steam Profile
      */
+    /*
+ * 根据 iframe 当前宽度缩放 Steam Profile
+ */
     function resizeProfile() {
-
       const profile = wrapper.querySelector(".miniprofile_container");
+      if (!profile) return;
 
-      if (!profile) {
-        return;
-      }
-
-      /*
-       * 先取消缩放
-       * 获取 Steam Profile 的真实尺寸
-       */
+      // 先重置 transform 以获取真实宽高度
       wrapper.style.transform = "none";
 
       const width = profile.offsetWidth;
       const height = profile.offsetHeight;
 
-      if (!width || !height) {
-        return;
-      }
+      if (!width || !height) return;
 
-      /*
-       * iframe 当前可用宽度
-       */
+      // iframe 当前可用宽度
       const availableWidth = document.documentElement.clientWidth;
 
       /*
-       * 根据宽度计算比例
-       *
-       * 如果空间足够：
-       * scale = 1
-       *
-       * 如果手机太窄：
-       * scale < 1
+       * 关键修改：取消 Math.min(..., 1) 限制！
+       * 让卡片在大屏幕/宽容器下也能按比例等比放大铺满宽度
        */
-      const scale = Math.min(
-              availableWidth / width,
-              1
-      );
+      const scale = availableWidth / width;
 
       /*
        * 应用缩放
@@ -166,15 +150,14 @@
       wrapper.style.transform = `scale(${scale})`;
 
       /*
-       * transform 不会改变 body 的布局高度
-       * 所以手动计算缩放后的高度
+       * 计算缩放后的真实高度
        */
       const scaledHeight = height * scale;
 
       document.body.style.height = `${scaledHeight}px`;
 
       /*
-       * 告诉父页面 iframe 应该多高
+       * 通知父页面更新 iframe 高度
        */
       window.parent.postMessage(
               {
