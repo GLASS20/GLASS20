@@ -5,15 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{{ page.title }} - {{ site.data.profile.navbar_name }}</title>
-
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://avatars.githubusercontent.com">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Noto+Sans+SC:wght@400;700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ '/assets/css/global.css' | relative_url }}">
+    <link rel="icon" href="{{ site.data.profile.icon_url }}" type="image/png" />
 </head>
 <body class="bg-light" {{ page.body_attr }}>
     {% include navbar.html %}
@@ -46,5 +47,59 @@
     <script src="{{ '/assets/js/common.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/bubble_visual_hash.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/semantic_scholar_citation_count.js' | relative_url }}"></script>
+
+    {% if site.data.display.arkpets %}
+    <script src="{{ '/assets/js/arkpets.js' | relative_url }}"></script>
+    <script>
+        const RESOURCE_PATH = "{{ '/assets/models/' | relative_url }}";
+
+        const CHARACTER_RESOURCES = [
+            {
+                id: "pepe",
+                name: "佩佩",
+                skeleton: "4058_pepe/build_char_4058_pepe.skel",
+                atlas: "4058_pepe/build_char_4058_pepe.atlas",
+                texture: "4058_pepe/build_char_4058_pepe.png",
+                resourcePath: RESOURCE_PATH,
+            },
+            {
+                id: "whitw2",
+                name: "荒芜拉普兰德",
+                skeleton: "1038_whitw2/build_char_1038_whitw2.skel",
+                atlas: "1038_whitw2/build_char_1038_whitw2.atlas",
+                texture: "1038_whitw2/build_char_1038_whitw2.png",
+                resourcePath: RESOURCE_PATH,
+            },
+            {
+                id: "frston-3",
+                name: "Friston-3",
+                skeleton: "4093_frston/build_char_4093_frston.skel",
+                atlas: "4093_frston/build_char_4093_frston.atlas",
+                texture: "4093_frston/build_char_4093_frston.png",
+                resourcePath: RESOURCE_PATH,
+            },
+            {
+                id: "texas2",
+                name: "缄默德克萨斯",
+                skeleton: "1028_texas2_iteration#1/build_char_1028_texas2_iteration#1.skel",
+                atlas: "1028_texas2_iteration#1/build_char_1028_texas2_iteration#1.atlas",
+                texture: "1028_texas2_iteration#1/build_char_1028_texas2_iteration#1.png",
+                resourcePath: "https://raw.githubusercontent.com/isHarryh/Ark-Models/refs/heads/main/models/",
+            }
+        ];
+
+        window.addEventListener('load', () => {
+            const character = new arkpets.Character(
+                "arkpets-demo",
+                (e) => arkpets.showContextMenu(e, character, {
+                    getCharacterModels: () => CHARACTER_RESOURCES,
+                }),
+                CHARACTER_RESOURCES[0],
+            );
+            console.log("Character initialized", character);
+        });
+    </script>
+    {% endif %}
+
 </body>
 </html>
