@@ -44,7 +44,11 @@
 <script>
     fetch("{{ site.data.profile.steam }}")
         .then(response => response.text())
-        .then(text => {
+        .then((response,text) => {
+            if(response.status !== 200){
+                throw new Error(response.statusText);
+            }
+
             const list = document.getElementById("steam-list");
             list.innerHTML = "";
 
@@ -110,7 +114,11 @@
 <script>
     fetch("{{ site.data.profile.music }}")
         .then(response => response.text())
-        .then(text => {
+        .then((response,text) => {
+            if(response.status !== 200){
+                throw new Error(response.statusText);
+            }
+
             const list = document.getElementById("music-list");
 
             if (!list) return;

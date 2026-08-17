@@ -4,11 +4,12 @@ navbar_name: "Mystic Light Quest"
 
 positions:
 #- name: Student
-- name: Sign = Mavenrick
+- name: Sign = Kal'tsit
 #  logo: # /assets/images/badges/MIT_Social_circle.png  # Logo is optional
 
 
-email: "cirnoku@outlook.com" # Do not include the '@' symbol
+email: "contact@kaltsit.net"
+
 # cv_link: link-to-your-cv-file
 #gscholar: # xFmQpf4AAAAJ  # This is an example, replace it with your own Google Scholar ID
 github: GLASS20
@@ -48,12 +49,18 @@ portrait_caption: >-
   我去，好可爱啊！！
 
 occupation:
-- name: <b>Doctor</b> of Rhodes Island
+- name: The <b>Doctor</b> of Rhodes Island
   logo: https://static.wikia.nocookie.net/mrfz/images/c/c8/Rhodes_Island.png
   position: >-
     Researcher <br/>
     Field Commander
   date: May. 2024 - present
+- name: The <b>Admiral</b> of Kantai Collection
+  logo: https://avatars.githubusercontent.com/u/39228785?s=200
+  position: >-
+    Hentai <br/>
+    Field Commander
+  date: Aug. 2026 - present
 
 websites:
 - name: Uptime
