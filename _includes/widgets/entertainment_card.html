@@ -43,12 +43,13 @@
 {% if site.data.profile.steam %}
 <script>
     fetch("{{ site.data.profile.steam }}")
-        .then(response => response.text())
-        .then((response,text) => {
-            if(response.status !== 200){
+        .then(response => {
+            if (!response.ok) {
                 throw new Error(response.statusText);
             }
-
+            return response.text();
+        })
+        .then(text => {
             const list = document.getElementById("steam-list");
             list.innerHTML = "";
 
@@ -113,12 +114,13 @@
 {% if site.data.profile.music %}
 <script>
     fetch("{{ site.data.profile.music }}")
-        .then(response => response.text())
-        .then((response,text) => {
-            if(response.status !== 200){
+        .then(response => {
+            if (!response.ok) {
                 throw new Error(response.statusText);
             }
-
+            return response.text();
+        })
+        .then(text => {
             const list = document.getElementById("music-list");
 
             if (!list) return;

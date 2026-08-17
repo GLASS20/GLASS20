@@ -23,7 +23,7 @@ telegram: H4kuRei
 
 short_bio_text_justify: true
 short_bio: >-
-  <div class="media py-1 border-top border-gray"></div>
+  <hr />
   <p>
     <b>项目编号：</b> SCP-9341-C
   </p>
@@ -39,7 +39,7 @@ short_bio: >-
   <p>
     该能力似乎只作用于被SCP-9341-C观察到并其主观认为可食用的实体有效，我们尚不明确作用条件，SCP-9341-C对于基金会提出的实验[修改]均拒绝配合。在一次测试中，███博士要求其将桌上的苹果吃掉，SCP-9341-C却将其能力作用于一旁直播《舌尖上的中国》节目的电视机画面中的一只烧鸡，嘴角处发现少许残留。
   </p>
-  <div class="media py-1 border-top border-gray"></div>
+  <hr />
   <p><b>采访SCP-9341-C-1音频记录</b></p>
   <p>[数据删除]</p>
   
