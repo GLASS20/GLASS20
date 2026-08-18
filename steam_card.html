@@ -228,7 +228,7 @@
 
       console.error(
               "Failed to load Steam profile:",
-              xhr.status
+              xhr.status + " " + xhr.responseText
       );
 
       // API 请求失败时替换默认文字
@@ -240,7 +240,7 @@
       }
 
       if (status) {
-        status.textContent = "API Error: " + xhr.status;
+        status.textContent =  xhr.status + " " + xhr.statusText;
       }
 
       resizeProfile();
