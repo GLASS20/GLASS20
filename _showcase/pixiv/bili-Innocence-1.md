@@ -10,7 +10,7 @@ group: 欢迎回家，凯尔希
     <a href="https://www.bilibili.com/opus/1200119492954292230" target="_blank">
         <img 
         data-src="https://i0.hdslb.com/bfs/new_dyn/b7e3661e6d3c7d5a3258935d973733f6245837164.png@1192w.webp" 
-        class="lazy w-100 rounded-xl-top" 
+        class="lazy w-100 rounded-xl" 
         src="{{ '/assets/images/empty_300x200.png' | relative_url }}"
         referrerpolicy="no-referrer"
         >
