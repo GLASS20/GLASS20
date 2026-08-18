@@ -13,7 +13,11 @@ module.exports = async (req, res) => {
         const response = await fetch(url);
 
         if (!response.ok) {
-            return res.status(response.status).send("Steam request failed");
+            const text = await response.text();
+
+            return res
+                .status(response.status)
+                .send(text);
         }
 
         const data = await response.text();
@@ -24,6 +28,6 @@ module.exports = async (req, res) => {
         res.status(200).send(data);
     } catch (err) {
         console.error(err);
-        res.status(500).send("500: Guru Meditation Error");
+        res.status(500).send("500: Server crashed :(");
     }
 };
