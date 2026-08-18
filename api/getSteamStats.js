@@ -28,6 +28,6 @@ module.exports = async (req, res) => {
         res.status(200).send(data);
     } catch (err) {
         console.error(err);
-        res.status(500).send("Server crashed :(");
+        res.status(503).send("Server crashed :(");
     }
 };
