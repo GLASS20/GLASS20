@@ -30,24 +30,3 @@ container_class: container-xl
     {% endfor %}
 </div>
 {% endfor %}
-
-<script>
-    window.addEventListener("message", function (event) {
-        if (!event.data) {
-            return;
-        }
-        if (event.data.type === "steam-profile-resize") {
-            const iframe = document.getElementById("steam-profile-frame");
-            if (!iframe) {
-                return;
-            }
-            // 更新高度[cite: 1, 3]
-            iframe.style.height = `${event.data.height}px`;
-
-            // 如果页面使用了 Masonry，刷新网格布局[cite: 2]
-            if (typeof $ !== 'undefined' && $('.grid').masonry) {
-                $('.grid').masonry('layout');
-            }
-        }
-    });
-</script>
